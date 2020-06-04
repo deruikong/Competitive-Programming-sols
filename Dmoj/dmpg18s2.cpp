@@ -1,35 +1,26 @@
-#ifdef ray
 #include "bits/stdc++.h"
-#else
-#include <bits/stdc++.h>
-#endif
-#define INF 0x3f3f3f3f
-#define ll long long
-#define ull unsigned long long
-#define pii pair<int, int>
-#define pll pair<ll, ll>
-#define pdd pair<double, double>
-#define REP(i,a,b) for (int i = int(a); i <= int(b); i++)
+#define scan(x) do{while((x=getchar())<'0'); for(x-='0'; '0'<=(_=getchar()); x=(x<<3)+(x<<1)+_-'0');}while(0)
 using namespace std;
-vector<int> pset(100001);
-void initSet(int size){pset.resize(size);REP(i, 0, size-1)pset[i] = i;}
-int findSet(int i){return (pset[i] == i)?i:(pset[i] = findSet(pset[i]));}
-void unionSet(int u, int v){pset[findSet(u)] = findSet(v);}
+typedef long long ll;
+typedef pair<int, int> pii;
+char _;
+
 
 int main(){
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
-    int ch = 0, N, Q;
-    cin >> Q >> N;
-    initSet(Q+1);
-    REP(i, 1, N){
-        string cmd;
-        int u, v;
-        cin >> cmd >> u >> v;
-        if(cmd == "A")unionSet(u, v);
-        else if(findSet(u) == findSet(v))cout << "Y" << endl;
-        else cout << "N" << endl;
-    }
-    return 0;
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	int n; ll prev = 0; cin >> n;
+	vector<ll> psa(n + 1, 0);
+	for(int i = 1; i <= n; i++){
+		cin >> psa[i];
+		psa[i] += psa[i - 1];
+		// cout << psa[i] << endl;
+	}
+	for(int i = 1; i <= n; i++){
+		ll x = psa[n - i + 1] - psa[i - 1];
+		x += prev;
+		prev = x;
+		cout << x << endl;
+	}
+	return 0;
 }

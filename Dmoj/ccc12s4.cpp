@@ -6,42 +6,55 @@ typedef pair<int, int> pii;
 char _;
 set<vector<int>> vis;
 
+ll init(int n){
+	ll ret = 0;
+	for(int i = n; i > 0; i--){
+		ret *= 10; ret += i;
+	}
+	return ret;
+}
+
+ll fpow(ll base, ll exp){
+	ll ret = 1;
+	while(exp > 0){
+		if(exp & 1) ret *= base;
+		base *= base;
+		exp >>= 1;
+	}
+	return ret;
+}
+
+ll vti(vector<int> arr){
+	string ret;
+	for(int i = 0; i < arr.size(); i++) ret += ' ';
+	for(int i = 0; i < arr.size(); i++){
+		ret[arr[i]] = i;
+	}
+	reverse(ret.begin(), ret.end());
+	return stoll(ret);
+}
+
+vector<int> itv(ll x){
+	string cur = to_string(x);
+
+}
+
+set<ll> vis;
 void solve(int n){
-	vector<int> arr(n), fin(n);
+	ll fin = init(n); vector<int> arr(n);
 	for(int i = 0; i < n; i++){
 		cin >> arr[i];
-		fin[i] = i + 1;
 	}
-	list<pair<int, vector<int>>> q; q.emplace_back(0, arr);
-	vis.insert(arr);
+	queue<pii> q; q.emplace(0, vti(arr));
 	while(!q.empty()){
-		int stps = q.front().first;
-		vector<int> curr = q.front().second; q.pop_front();
-		if(curr == fin){
-			cout << stps << endl;
+		int w = q.front().first; ll x = q.front().second; q.pop();
+		if(x == fin){
+			cout << w << endl;
 			return;
 		}
+		vector<int> cur = itv(x);
 		for(int i = 0; i < n; i++){
-			if(i != 0 && curr[i] % 10 < curr[i - 1] % 10){
-				vector<int> tmp = curr;
-				tmp[i - 1] *= 10;
-				tmp[i - 1] += tmp[i] % 10;
-				tmp[i] /= 10;
-				if(vis.find(tmp) == vis.end()){
-					vis.insert(tmp);
-					q.emplace_back(stps + 1, tmp);
-				}
-			}
-			if(i != n - 1 && curr[i] % 10 < curr[i + 1] % 10){
-				vector<int> tmp = curr;
-				tmp[i + 1] *= 10;
-				tmp[i + 1] += tmp[i] % 10;
-				tmp[i] /= 10;
-				if(vis.find(tmp) == vis.end()){
-					vis.insert(tmp);
-					q.emplace_back(stps + 1, tmp);
-				}
-			}
+			if()
 		}
 	}
 	cout << "IMPOSSIBLE" << endl;
